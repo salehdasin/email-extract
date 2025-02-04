@@ -8,7 +8,7 @@ function getEmailsToSheet() {
     var subject = message.getSubject();
     sheet.appendRow([sender, subject]);
     
-    // اضافه کردن لیبل "processed" به ایمیل پردازش شده
+
     threads[i].addLabel(GmailApp.getUserLabelByName('processed') || GmailApp.createLabel('processed'));
   }
 }
