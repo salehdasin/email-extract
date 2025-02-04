@@ -1,0 +1,11 @@
+function getEmailsToSheet() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var threads = GmailApp.getInboxThreads(0, 10); // تعداد ایمیل‌هایی که می‌خواهید پردازش کنید
+  for (var i = 0; i < threads.length; i++) {
+    var message = threads[i].getMessages()[0];
+    var sender = message.getFrom();
+    var subject = message.getSubject();
+    sheet.appendRow([sender, subject]);
+  }
+}
+
