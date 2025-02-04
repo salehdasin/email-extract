@@ -1,11 +1,14 @@
 function getEmailsToSheet() {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  var threads = GmailApp.getInboxThreads(0, 10); // تعداد ایمیل‌هایی که می‌خواهید پردازش کنید
+  var threads = GmailApp.search('is:inbox -label:processed');
+  
   for (var i = 0; i < threads.length; i++) {
     var message = threads[i].getMessages()[0];
     var sender = message.getFrom();
     var subject = message.getSubject();
     sheet.appendRow([sender, subject]);
+    
+    // اضافه کردن لیبل "processed" به ایمیل پردازش شده
+    threads[i].addLabel(GmailApp.getUserLabelByName('processed') || GmailApp.createLabel('processed'));
   }
 }
-
